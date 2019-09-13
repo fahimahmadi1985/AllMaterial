@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h3 id="welcome"></h3>
+    <img id="pic" src="" />
+
+    <!-- 
+        Write script to get the picture and content of data.txt and 
+        display them into the scree.
+
+        Note1: this request will be send from the client side to server 
+        and server is responsible to prepare the requested resources and 
+        deliver them to client.
+
+        Note2: to execute the file you can use liveserver of vscode
+     -->
+
+    <script>
+      fetch("./leomessi.jpg")
+        .then(response => {
+          return response.blob();
+        })
+        .then(blob => {
+          console.log(blob);
+          return URL.createObjectURL(blob);
+        })
+        .then(url => {
+          document.getElementById("pic").src = url;
+        })
+        .catch(err => {
+          console.log("Error: " + err.message);
+        });
+    </script>
+  </body>
+</html>
+
+<!-- 
+
+    Process of fetch function
+    step1: call fetch function together with url of the required resource
+    step2: convert the type of response from object to something that can
+    be usefull for other processes
+    setp3: if you want to get only the src, extract src from blob with 
+    URL.createObjectURL()
+    step4: use dom to display the result inside web page
+
+ -->
