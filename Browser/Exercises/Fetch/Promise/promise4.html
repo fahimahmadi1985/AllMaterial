@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="result"></div>
+    <script>
+      let urls = [
+        "https://api.github.com/users/iliakan",
+        "https://api.github.com/users/remy",
+        "https://no-such-url"
+      ];
+
+      Promise.allSettled(urls.map(url => fetch(url))).then(results => {
+        // (*)
+        var elem = document.getElementById("result");
+        elem.innerHTML = "Fulfilled <br>";
+        results.forEach((result, num) => {
+          if (result.status == "fulfilled") {
+            elem.innerHTML += `${urls[num]}: ${result.value.status} <br>`;
+          }
+
+          if ((result.status = "rejected")) {
+            //alert(`${urls[num]}: ${result.reason}`);
+            //elem.innerHTML += "<br>Rejected<br>";
+            elem.innerHTML += `<br> ${urls[num]}: ${result.reason}`;
+          }
+        });
+      });
+    </script>
+  </body>
+</html>
