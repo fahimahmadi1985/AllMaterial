@@ -8,24 +8,23 @@
   </head>
   <body>
     <h3>Welcome to our weather forcast website...</h3>
-    <div id="cont"></div>
-    <input type="text" id="city" />
-    <button type="button" onclick="checkWeather()">Check Weather</button>
-    <script>
-      /*  function checkWeather(){
-            window.location = ''
-        } */
-      async function getData() {
-        let response = await fetch(
-          "http://api.openweathermap.org/data/2.5/forecast?q=London&APPID=52ee4aaef695fd902592806b62fa9741"
-        );
-        let json = await response.json();
-        return json;
-      }
 
-      getData().then(data => {
-        console.log(data);
-      });
+    <input type="text" id="city" />
+    <button
+      type="button"
+      onclick="getData().then(result=>{document.getElementById('cont').innerHTML = result.main.temp})"
+    >
+      Check Weather
+    </button>
+    <div id="cont"></div>
+    <script>
+      async function getData() {
+        var cityName = document.getElementById("city").value;
+        var response = await fetch(
+          `http://api.openweathermap.org/data/2.5/weather?q=${cityName}&APIkey=52ee4aaef695fd902592806b62fa9741&units=metric`
+        );
+        return response.json();
+      }
     </script>
   </body>
 </html>
