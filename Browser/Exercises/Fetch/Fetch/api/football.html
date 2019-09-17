@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.2.0/handlebars.min.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+    <title>Document</title>
+  </head>
+  <body class="container">
+    <script id="temp" type="text/x-handlebars-template">
+       <table class="table bg-dark text-white">
+          <tr><th>Team Name</th><th>L</th><th>D</th><th>W</th><th>Pts</th></tr>
+          {{#each result}}
+              <tr><td>{{team_name}}</td><td>{{overall_league_L}}</td><td>{{overall_league_D}}</td><td>{{overall_league_W}}</td><td>{{overall_league_PTS}}</td></tr>
+          {{/each}}
+      </table>
+    </script>
+
+    <script>
+      const url = `https://apiv2.apifootball.com/?action=get_standings&league_id=148&APIkey=e3022465dded28da591ea77ad633a466947cae0e639a42ea158b78e7ce712bb3`;
+      async function getData() {
+        var response = await fetch(url);
+        var json = await response.json();
+        return json;
+      }
+
+      getData().then(result => {
+        var temp = document.getElementById("temp").innerHTML;
+        var compiler = Handlebars.compile(temp);
+        var myobj = { result };
+        var content = compiler(myobj);
+        document.body.innerHTML = content;
+      });
+    </script>
+  </body>
+</html>
