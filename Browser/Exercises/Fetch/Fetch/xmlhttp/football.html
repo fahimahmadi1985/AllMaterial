@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.2.0/handlebars.min.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+    <title>Document</title>
+  </head>
+  <body class="container bg-warning">
+    <div id="selectElem">
+      League ID:
+      <select
+        id="leagid"
+        onchange="getData(document.getElementById('leagid').value);"
+      >
+        <option value="148">Primier League</option>
+        <option value="149">Championship</option>
+        <option value="150">League One</option>
+        <option value="151">League Two</option>
+        <option value="152">National League</option>
+      </select>
+      <button
+        type="button"
+        onclick="getData(document.getElementById('leagid').value); "
+      >
+        Submit
+      </button>
+    </div>
+    <div id="cont" class="container-fluid"></div>
+    <script id="temp" type="text/x-handlebars-template">
+       <table class="table bg-dark text-white" id="tbl1">
+            <tr><td colspan="5" id="lname"></td></tr>
+          <tr><th>Team Name</th><th>L</th><th>D</th><th>W</th><th>Pts</th></tr>
+          {{#each xmlObj}}
+              <tr><td>{{team_name}}</td><td>{{overall_league_L}}</td><td>{{overall_league_D}}</td><td>{{overall_league_W}}</td><td>{{overall_league_PTS}}</td></tr>
+          {{/each}}
+      </table>
+    </script>
+    <script>
+      var teams = ["liverpool", "mancity", "manunited"];
+      async function getData(lid) {
+        var url = `https://apiv2.apifootball.com/?action=get_standings&league_id=${lid}&APIkey=e3022465dded28da591ea77ad633a466947cae0e639a42ea158b78e7ce712bb3`;
+        var xmlObj;
+
+        /* ****************************** */
+        let xhr = new XMLHttpRequest();
+        xhr.open("GET", url);
+        xhr.responseType = "json";
+        xhr.send();
+
+        var temp = document.getElementById("temp").innerHTML;
+        var compiler2 = Handlebars.compile(temp);
+        xhr.onload = function() {
+          console.log("response recieved");
+          var xmlObj = xhr.response;
+
+          document.getElementById("cont").innerHTML = compiler2({
+            xmlObj
+          });
+          document.getElementById("lname").innerHTML = xmlObj[0].league_name;
+        };
+
+        /* ****************************** */
+      }
+    </script>
+  </body>
+</html>

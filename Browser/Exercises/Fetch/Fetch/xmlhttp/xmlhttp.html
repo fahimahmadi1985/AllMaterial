@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+    <title>Document</title>
+  </head>
+  <body>
+    <!-- <div class="progress" id="outerBar">
+      <div
+        class="progress-bar"
+        role="progressbar"
+        aria-valuemin="0"
+        aria-valuemax="100"
+        id="innerBar"
+      ></div>
+    </div> -->
+
+    <progress max="100" min="0" id="progress" style="width:100%;"></progress>
+    <script>
+      //request
+
+      var xhr = new XMLHttpRequest();
+      console.log(`State ${xhr.status}`);
+      xhr.onreadystatechange = function() {
+        if (xhr.readyState == 0) {
+          console.log("State 0");
+        }
+        if (xhr.readyState == 1) {
+          console.log("State 1");
+        }
+        if (xhr.readyState == 2) {
+          console.log("State 2");
+        }
+        if (xhr.readyState == 3) {
+          console.log("State 3");
+        }
+        if (xhr.readyState == 4) {
+          console.log("State 4");
+        }
+      };
+      //let url = new URL("./data.txt");
+
+      xhr.open("GET", "./data.txt");
+      xhr.responseType = "";
+      xhr.send();
+
+      //response
+      xhr.onload = function() {
+        if (xhr.status != 200) {
+          console.log(`Error ${xhr.status}: ${xhr.statusText}`);
+        } else {
+          //document.body.innerHTML = xhr.response[0].player_name;
+          console.log(`Done, got ${xhr.response.length} bytes`);
+        }
+      };
+
+      xhr.onprogress = function(event) {
+        //return true if server send the content-length header info
+        if (event.lengthComputable) {
+          //console.log(`Recieved ${event.loaded} of ${event.total} bytes`);
+          progressPercent = Math.round((event.loaded / event.total) * 100);
+          console.log(progressPercent);
+          document.getElementById("progress").value = progressPercent;
+          //document.getElementById('innerBar').style.width = `${progressPercent}%`;
+          //document.getElementById('innerBar').setAttribute(aria-valuenow) = `${progressPercent}`
+        } else {
+          console.log(`Recieved ${event.loaded} bytes`);
+        }
+      };
+
+      xhr.onerror = function() {
+        console.log("Request failed");
+      };
+    </script>
+  </body>
+</html>
