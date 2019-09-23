@@ -24,6 +24,7 @@
     <script>
       fetch("./leomessi.jpg")
         .then(response => {
+          console.log(response);
           return response.blob();
         })
         .then(blob => {
