@@ -9,7 +9,9 @@
   <body>
     <script>
       async function func() {
-        var resp = await fetch("http://localhost:8080/info");
+        var resp = await fetch("http://localhost:8080/info", {
+          headers: { "Content-Type": "application/json" }
+        });
         var result = await resp.text();
         return result;
       }
