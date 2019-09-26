@@ -54,6 +54,7 @@ for (var names of setNames) {
     if (nameCounter == ageCounter) {
       mapNamesAges.set(names, ages);
     }
+    console.log("(" + nameCounter + " , " + ageCounter + ")");
     ageCounter++;
   }
   nameCounter++;

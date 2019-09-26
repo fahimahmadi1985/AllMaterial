@@ -1,11 +1,11 @@
-/*  var person = {
+var person = {
   firstname: "fahim",
   lastname: "ahmadi"
 };
 var dci = new Map();
 dci.set("Person", person.firstname);
 dci.set("Person", person.lastname);
-console.log(dci); */
+console.log(dci);
 
 //dci map
 var dci = new Map();
@@ -36,6 +36,12 @@ dci
 //return list of people who are older than fahim
 for (let tuples of dci.entries()) {
   if (tuples[1] > dci.get("fahim")) {
-    console.log(tuples[0]);
+    //console.log(tuples[0]);
+  }
+}
+
+for (var elements of dci.entries()) {
+  if (elements[1] == 30) {
+    //console.log(elements[0]);
   }
 }
