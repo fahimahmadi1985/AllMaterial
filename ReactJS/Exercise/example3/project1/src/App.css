@@ -1,0 +1,26 @@
+.fcomp {
+  border: solid 1px red;
+  display: flex;
+  justify-content: end;
+  align-items: flex-end;
+  width: 200px;
+  height: 200px;
+  background-color: red;
+}
+
+.childcomp {
+  border: solid 1px blue;
+  width: 100px;
+  height: 100px;
+  background-color: blue;
+}
+
+.maincomp {
+  border: solid 1px darkgoldenrod;
+  display: flex;
+  justify-content: end;
+  align-items: flex-end;
+  width: 300px;
+  height: 300px;
+  background-color: darkgoldenrod;
+}
